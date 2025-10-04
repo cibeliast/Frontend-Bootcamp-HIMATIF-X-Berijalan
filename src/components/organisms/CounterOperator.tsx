@@ -37,28 +37,6 @@ const CounterOperator: React.FC = () => {
     setSelectedCounter(counter);
   };
 
-  const handleNextQueue = () => {
-    if (!selectedCounter) return;
-    nextQueue.mutate({ counter_id: selectedCounter.id }, { onSuccess: () => refetchQueues() });
-  };
-
-  const handleSkipQueue = () => {
-    if (!selectedCounter) return;
-    skipQueue.mutate({ counter_id: selectedCounter.id }, { onSuccess: () => refetchQueues() });
-  };
-
-  const handleClaimQueue = () => {
-    claimQueue.mutate(undefined, { onSuccess: () => refetchQueues() });
-  };
-
-  const handleReleaseQueue = () => {
-    if (!selectedCounter || !selectedQueue) return;
-    releaseQueue.mutate(
-      { counter_id: selectedCounter.id, queue_number: selectedQueue.currentQueue },
-      { onSuccess: () => refetchQueues() }
-    );
-  };
-
   return (
     <div>
       <Card className="mb-6">
