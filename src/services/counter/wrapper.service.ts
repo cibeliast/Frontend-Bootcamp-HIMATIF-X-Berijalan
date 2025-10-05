@@ -28,16 +28,6 @@ export const useGetAllCounters = () => {
   });
 };
 
-// ------------------------ GET COUNTER BY ID ------------------------
-export const useGetCounterById = (id: number) => {
-  return useQuery({
-    queryKey: [COUNTER_KEYS.byId(id)],
-    queryFn: () => apiGetCounterById(id),
-    enabled: !!id,
-    refetchOnWindowFocus: false,
-  });
-};
-
 // ------------------------ CREATE COUNTER ------------------------
 export const useCreateCounter = () => {
   return useMutation({
@@ -82,28 +72,6 @@ export const useUpdateCounter = () => {
     },
     onError: (error: any) => {
       toast.error(error?.message || "Failed to update counter");
-    },
-  });
-};
-
-// ------------------------ DELETE COUNTER ------------------------
-export const useDeleteCounter = () => {
-  return useMutation({
-    mutationFn: (id: number) => apiDeleteCounter(id),
-    onSuccess: (response) => {
-      if (response?.error) {
-        toast.error(response.error.message || "Failed to delete counter");
-        return;
-      }
-
-      if (response?.status) {
-        toast.success("Counter deleted successfully");
-      } else {
-        toast.error(response?.message || "Failed to delete counter");
-      }
-    },
-    onError: (error: any) => {
-      toast.error(error?.message || "Failed to delete counter");
     },
   });
 };
